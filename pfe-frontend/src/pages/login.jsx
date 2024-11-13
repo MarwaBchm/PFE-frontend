@@ -39,38 +39,38 @@ const Login = () => {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="text-white ">
+        <form onSubmit={handleSubmit} >
           <div className="mb-4 ">
             <h2 className="text-2xl font-NovaFlat font-thin  tracking-wider mb-5">
               Login
             </h2>
-            <label className="mb-2 text-sm ">
+            <label className="mb-2 text-sm text-white">
               Email
             </label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none placeholder:text-gray-400"
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none placeholder:text-gray-400 font-mono text-gray-700"
               placeholder="username@univ-tlemcen.dz"
               required
             />
           </div>
 
           <div className="mb-2">
-            <label className="mb-2 text-sm  ">
+            <label className="mb-2 text-sm  text-white ">
               Password
             </label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none placeholder:text-gray-400"
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none placeholder:text-gray-400 font-mono text-gray-700 "
               placeholder="Enter your password"
               required
             />
           </div>
-          <p className=" text-sm  ">
+          <p className=" text-sm  text-white ">
               Forgot password?
             </p>
           <button
