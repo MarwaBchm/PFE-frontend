@@ -41,7 +41,7 @@ const Login = () => {
 
         <form onSubmit={handleSubmit} >
           <div className="mb-4 ">
-            <h2 className="text-2xl font-NovaFlat font-thin  tracking-wider mb-5">
+            <h2 className="text-2xl font-NovaFlat font-thin  tracking-wider mb-5 text-white">
               Login
             </h2>
             <label className="mb-2 text-sm text-white">
