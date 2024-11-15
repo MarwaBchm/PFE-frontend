@@ -4,11 +4,11 @@ import Login from "../pages/login";
 import Dashboard from "../layouts/dashboardLayout";
 import Home from "../components/home";
 import UsersManagement from "../components/usersManagement";
-import SubjectsProposal from "../components/subjectsProposal";
-import SubjectsValidation from "../components/subjectsValidation";
+import SubjectsManagement from "../components/subjectsManagement";
+import Emails from "../components/emails";
 import DefenseSchedule from "../components/defenseSchedule";
- import DefenseManagement from "../components/defenseManagement";
- import Settings from "../components/settings";
+import Deadlines from "../components/deadlines";
+import Settings from "../components/settings";
 const AppRoutes = () => {
   return (
     <Router>
@@ -17,13 +17,11 @@ const AppRoutes = () => {
         <Route path="/dashboard" element={<Dashboard />}>
           <Route path="home" element={<Home />} />
           <Route path="usersManagement" element={<UsersManagement />} />
-          <Route path="subjectsProposal" element={<SubjectsProposal />} />
-          <Route path="subjectsValidation" element={<SubjectsValidation />} />
+          <Route path="subjectsManagement" element={<SubjectsManagement />} />
+          <Route path="emails" element={<Emails />} />
           <Route path="defenseSchedule" element={<DefenseSchedule />} />
-          <Route path="defenseManagement" element={<DefenseManagement />} />
+          <Route path="deadlines" element={<Deadlines />} />
           <Route path="settings" element={<Settings />} />
-
-
         </Route>
       </Routes>
     </Router>
