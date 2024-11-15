@@ -1,7 +1,7 @@
 import React from "react";
-import Sidebar from "../components/Sidebar";
-import Navbar from "../components/Navbar";
-import DashboardContent from "../components/DashboardContent";
+import Sidebar from "../components/ui/Sidebar";
+import Navbar from "../components/ui/Navbar";
+import { Outlet } from "react-router-dom";
 
 const Dashboard = () => {
   return (
@@ -13,7 +13,7 @@ const Dashboard = () => {
         <Navbar />
         {/* Main Content */}
         <main className="flex-1 p-4 bg-blue-3">
-          <DashboardContent />
+          <Outlet /> {/* This renders the nested routes */}
         </main>
       </div>
     </div>

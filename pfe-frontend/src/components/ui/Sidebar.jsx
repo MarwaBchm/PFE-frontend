@@ -1,47 +1,54 @@
 import React, { useState, useLayoutEffect, useRef } from "react";
-
+import { Link } from "react-router-dom"; // Import Link for routing
 const sidebarItems = [
   {
     id: 1,
     label: "Dashboard",
     image: "/icons/not-selected/home.png",
     selectedImage: "/icons/selected/home.png",
+    path: "/dashboard/home",
   },
   {
     id: 2,
     label: "Users Management",
     image: "/icons/not-selected/users-management.png",
     selectedImage: "/icons/selected/users-management.png",
+    path: "/dashboard/usersManagement",
   },
   {
     id: 3,
     label: "Subjects Proposal",
     image: "/icons/not-selected/propose.png",
     selectedImage: "/icons/selected/propose.png",
+    path: "/dashboard/subjectsProposal",
   },
   {
     id: 4,
     label: "Subjects Validation",
     image: "/icons/not-selected/validation.png",
     selectedImage: "/icons/selected/validation.png",
+    path: "/dashboard/subjectsValidation",
   },
   {
     id: 5,
     label: "Defense Schedule",
     image: "/icons/not-selected/project.png",
     selectedImage: "/icons/selected/project.png",
+    path: "/dashboard/defenseSchedule",
   },
   {
     id: 6,
     label: "Defense Management",
     image: "/icons/not-selected/defense.png",
     selectedImage: "/icons/selected/defense.png",
+    path: "/dashboard/defenseManagement",
   },
   {
     id: 7,
     label: "Settings",
     image: "/icons/not-selected/settings.png",
     selectedImage: "/icons/selected/settings.png",
+    path: "/dashboard/settings",
   },
   {
     id: 8,
@@ -109,7 +116,7 @@ const Sidebar = () => {
     <div className="flex h-full">
       {/* Sidebar */}
       <div
-        className={`sidebar-container bg-white pt-2 shadow-lg h-full transition-all duration-400 overflow-y-auto ${
+        className={`sidebar-container bg-white pt-2 shadow-lg h-full transition-all duration-500 overflow-y-auto ${
           isOpen ? "w-48 sm:w-48 lg:w-64" : "w-16"
         }`}
       >
@@ -118,7 +125,7 @@ const Sidebar = () => {
           {/* Animated Indicator */}
           <div
             ref={indicatorRef}
-            className="absolute right-0 w-1 bg-blue-600 rounded-md transition-all duration-400"
+            className="absolute right-0 w-1 bg-blue-4 rounded-md transition-all duration-500"
           ></div>
 
           {/* Logo */}
@@ -142,14 +149,17 @@ const Sidebar = () => {
               )}
             </button>
             <img src="/logo.png" className="h-12" alt="Logo" />
-            <h1 className={`sm:text-xl lg:text-2xl ${isOpen? "":"hidden"}`} >GradMastery</h1>
+            <h1 className={`sm:text-xl lg:text-2xl ${isOpen ? "" : "hidden"}`}>
+              GradMastery
+            </h1>
           </div>
 
           {/* Navigation */}
           <nav className="space-y-2 mt-4">
             {sidebarItems.map((item) => (
-              <a
+              <Link
                 key={item.id}
+                to={item.path}
                 onClick={() => handleItemClick(item.id)}
                 className={`sidebar-item-${
                   item.id
@@ -175,7 +185,7 @@ const Sidebar = () => {
                 >
                   {item.label}
                 </span>
-              </a>
+              </Link>
             ))}
           </nav>
         </div>
