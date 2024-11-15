@@ -17,17 +17,17 @@ const sidebarItems = [
   },
   {
     id: 3,
-    label: "Subjects Proposal",
+    label: "Subjects Management",
     image: "/icons/not-selected/propose.png",
     selectedImage: "/icons/selected/propose.png",
-    path: "/dashboard/subjectsProposal",
+    path: "/dashboard/subjectsManagement",
   },
   {
     id: 4,
-    label: "Subjects Validation",
-    image: "/icons/not-selected/validation.png",
-    selectedImage: "/icons/selected/validation.png",
-    path: "/dashboard/subjectsValidation",
+    label: "Deadlines",
+    image: "/icons/not-selected/defense.png",
+    selectedImage: "/icons/selected/defense.png",
+    path: "/dashboard/deadlines",
   },
   {
     id: 5,
@@ -38,10 +38,10 @@ const sidebarItems = [
   },
   {
     id: 6,
-    label: "Defense Management",
-    image: "/icons/not-selected/defense.png",
-    selectedImage: "/icons/selected/defense.png",
-    path: "/dashboard/defenseManagement",
+    label: "Emails",
+    image: "/icons/not-selected/email.png",
+    selectedImage: "/icons/selected/email.png",
+    path: "/dashboard/emails",
   },
   {
     id: 7,
