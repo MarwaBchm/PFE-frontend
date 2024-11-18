@@ -58,47 +58,47 @@ const ProfessorList = () => {
   };
 
   return (
-    <div className="professor-list bg-white rounded-xl p-2 pt-4">
+    <div className="professor-list bg-white rounded-xl p-2 pt-4 mb-6 shadow-sm">
       <div className="flex flex-row items-center justify-between pr-2 text-xl text-blue-2 font-semibold mb-4 pl-2">
         <p>Professors</p>
-        <button className="bg-blue-5 bg-opacity-80 rounded-md py-1 px-3 text-white text-xs">
+        <button className="bg-blue-5 bg-opacity-75 rounded-md py-1 px-3 text-white text-xs">
           Add a new professor
         </button>
       </div>
 
       {/* Column Headers */}
       <div className="flex justify-start items-center pl-2 pb-1 border-b border-gray-300 font-medium text-gray-3 text-xs font-Roboto">
-        <div className="w-[28%] flex justify-start items-start">Professor</div>
+        <div className="w-[32%] flex justify-start items-start">Professor</div>
         <div className="w-[20%] flex justify-start items-start">Grade</div>
-        <div className="w-[20%] flex justify-start items-start">
+        <div className="w-[20%] flex justify-center items-start ">
           Recruitment Year
         </div>
       </div>
 
       {/* Scrollable List of Professors */}
-      <div className="max-h-56 overflow-y-auto">
+      <div className="max-h-72 overflow-y-auto">
         <ul className="list-none p-0">
           {professors.map((professor) => (
             <li
               key={professor.id}
               className="flex justify-start items-center p-2 border-b border-gray-200"
             >
-              <div className="flex flex-row justify-start  items-start gap-1.5 text-14 w-[28%]">
-                <img src="/list.png" className="w-9 rounded-xl" />
-                <div className="flex flex-col justify-start items-start">
-                  <p className="font-medium text-blue-2">
+              <div className="flex flex-row justify-start  items-start gap-1.5 text-14 w-[32%]">
+                <img src="/list.jpg" className="w-9 rounded-xl" />
+                <div className="flex flex-col justify-between items-start">
+                  <p className="font-medium text-13 text-blue-2">
                     {professor.fullName}
                   </p>
-                  <p className="text-xs text-gray-4">{professor.email}</p>
+                  <p className="text-11 text-gray-4">{professor.email}</p>
                 </div>
               </div>
-              <div className="w-[25%] flex justify-start items-start font-Roboto text-13">
+              <div className="w-[22%] flex justify-start items-start font-Roboto text-12">
                 {professor.grade}
               </div>
-              <div className="w-[20%] flex justify-start items-start font-Roboto text-13">
+              <div className="w-[20%] flex justify-center items-start font-Roboto text-13">
                 {getRecruitmentYear(professor.recruitmentDate)}
               </div>
-              <div className="flex flex-row justify-end items-center gap-1 w-[20%]">
+              <div className="flex flex-row justify-end items-center gap-1 w-[25%]">
                 <button
                   className="text-gray-3 hover:bg-gray-100 rounded-md py-1 px-2 text-xs font-Roboto"
                   onClick={() => handleEditClick(professor)}

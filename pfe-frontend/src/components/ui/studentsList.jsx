@@ -7,7 +7,7 @@ const StudentList = () => {
       fullName: "Ahmed Mustafa",
       email: "ahmed@univ-tlemcen.dz",
       major: "Artificial Intelligence",
-      ranking: "21st",
+      ranking: "1st",
       chosenSubject: "Autonomous Vehicle Control Systems",
       masterAverage: 19.5,
       projectType: "Classic",
@@ -27,7 +27,7 @@ const StudentList = () => {
       fullName: "Mohammed Ali",
       email: "mohammed@univ-tlemcen.dz",
       major: "Software Engineering",
-      ranking: "2nd",
+      ranking: "21st",
       chosenSubject: "Web Application Development",
       masterAverage: 16.0,
       projectType: "Classic",
@@ -37,7 +37,7 @@ const StudentList = () => {
       fullName: "Layla Nasser",
       email: "layla@univ-tlemcen.dz",
       major: "Information Systems",
-      ranking: "5th",
+      ranking: "22nd",
       chosenSubject: "Cloud-based ERP Solutions",
       masterAverage: 17.3,
       projectType: "Innovant",
@@ -129,16 +129,16 @@ const StudentList = () => {
   // Helper function to get ranking color
   const getRankingColor = (rank) => {
     const rankNumber = parseInt(rank, 10);
-    if (rankNumber <= 10) return "text-green-1";
-    if (rankNumber <= 20) return "text-orange-1";
+    if (rankNumber <= 10) return "text-green-1 text-medium";
+    if (rankNumber <= 20) return "text-orange-1 text-medium";
     return "text-red-1";
   };
 
   return (
-    <div className="student-list bg-white rounded-xl p-2 pt-4">
+    <div className="student-list bg-white rounded-xl p-2 pt-4 shadow-sm">
       <div className="flex flex-row items-center justify-between pr-2 text-xl text-blue-2 font-semibold mb-4 pl-2">
         <p>Students</p>
-        <button className="bg-blue-5 bg-opacity-80 rounded-md py-1 px-3 text-white text-xs">
+        <button className="bg-blue-5 bg-opacity-75 rounded-md py-1 px-3 text-white text-xs">
           Add a new student
         </button>
       </div>
@@ -149,7 +149,7 @@ const StudentList = () => {
         <div className="w-[18%] flex justify-start items-start lg:block md:hidden sm:hidden">
           Major
         </div>
-        <div className="w-1/5 flex justify-start items-start lg:block md:hidden sm:hidden">
+        <div className="w-[22%] flex justify-start items-start lg:block md:hidden sm:hidden">
           Average Mark | Ranking
         </div>
         <div className="w-1/6 flex justify-start items-start lg:block md:hidden sm:hidden">
@@ -158,25 +158,27 @@ const StudentList = () => {
       </div>
 
       {/* Scrollable List of Students */}
-      <div className="max-h-56 overflow-y-auto">
+      <div className="max-h-72 overflow-y-auto">
         <ul className="list-none p-0">
           {students.map((student) => (
             <li
               key={student.id}
-              className="flex justify-between items-center p-2 border-b border-gray-200"
+              className="flex justify-between items-center p-2 pl-1 border-b border-gray-200"
             >
               <div className="flex flex-row justify-start items-center gap-1.5 text-14 lg:w-[28%] md:1/2">
-                <img src="/list.png" className="w-9 h-10 rounded-xl" />
+                <img src="/list.jpg" className="w-9 h-9 rounded-xl" />
                 <div className="flex flex-col justify-start items-start">
-                  <p className="font-medium text-blue-2">{student.fullName}</p>
-                  <p className="text-xs text-gray-4">{student.email}</p>
+                  <p className="font-medium text-13 text-blue-2">
+                    {student.fullName}
+                  </p>
+                  <p className=" text-11 text-gray-4">{student.email}</p>
                 </div>
               </div>
-              <div className="w-[22%] lg:block md:hidden sm:hidden flex justify-start items-start font-Roboto text-13">
+              <div className="w-[22%] lg:block md:hidden sm:hidden flex justify-start items-start font-Roboto text-12">
                 {student.major}
               </div>
               <div className="w-[19%]   flex flex-row   gap-1 justify-center  items-center font-Roboto text-13">
-                <p className="text-blue-2 font-Arial font-semibold">
+                <p className="text-blue-2 font-Arial font-medium">
                   {student.masterAverage}
                 </p>
                 <p className="text-gray-3 font-bold">|</p>
@@ -184,7 +186,7 @@ const StudentList = () => {
                   {getOrdinal(student.ranking)}
                 </p>
               </div>
-              <div className="flex  w-[12%] lg:block md:hidden sm:hidden text-13 font-Roboto">
+              <div className="flex  w-[12%] lg:block md:hidden sm:hidden text-12 font-Roboto">
                 {student.projectType}
               </div>
               <div className="flex flex-row justify-between items-center gap-1">

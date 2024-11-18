@@ -12,7 +12,7 @@ const Dashboard = () => {
         {/* Navbar */}
         <Navbar />
         {/* Main Content */}
-        <main className="flex-1 p-2 pt-4 w-full pb-6 bg-blue-3 ">
+        <main className="flex-1 p-2 pt-4 w-full pb-0 pr-0 bg-blue-3 ">
           <div className="  flex  ">
             <Outlet /> {/* This renders the nested routes */}
           </div>

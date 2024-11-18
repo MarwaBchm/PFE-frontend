@@ -16,6 +16,8 @@ module.exports = {
         Roboto: ["Roboto"],
       },
       fontSize: {
+        10: "0.625rem", // 10px
+        11: "0.6875rem", // 11px
         12: "0.75rem",
         13: " 0.8125rem",
         14: "0.875rem",

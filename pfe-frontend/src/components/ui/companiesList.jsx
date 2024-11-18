@@ -15,7 +15,7 @@ const CompanyList = () => {
       email: "contact@Sogesie.com",
       studentsNumber: "04",
 
-      logo: "/list.png",
+      logo: "/Sogesie-logo.PNG",
     },
     {
       id: 3,
@@ -23,7 +23,7 @@ const CompanyList = () => {
       email: "support@Naltis.com",
       studentsNumber: "04",
 
-      logo: "/Naltis-logo.png",
+      logo: "/Naltis-logo.PNG",
     },
     {
       id: 4,
@@ -31,7 +31,7 @@ const CompanyList = () => {
       email: "hello@Azimut.com",
       studentsNumber: "02",
 
-      logo: "/Azimut-logo.png",
+      logo: "/Azimut-logo.PNG",
     },
     {
       id: 5,
@@ -39,7 +39,7 @@ const CompanyList = () => {
       email: "services@Eurequat.com",
       studentsNumber: "04",
 
-      logo: "/a.png",
+      logo: "/a.PNG",
     },
   ]);
 
@@ -57,7 +57,7 @@ const CompanyList = () => {
   };
 
   return (
-    <div className="company-list bg-white rounded-xl p-2 pt-4">
+    <div className="company-list bg-white rounded-xl p-2 pt-4 shadow-sm mt-2">
       <div className="flex flex-row items-center justify-between pr-2 text-xl text-blue-2 font-semibold mb-4 pl-2">
         <p>Companies</p>
       </div>
@@ -70,25 +70,25 @@ const CompanyList = () => {
       </div>
 
       {/* Scrollable List of Companies */}
-      <div className="max-h-56 overflow-y-auto">
+      <div className="max-h-80 overflow-y-auto">
         <ul className="list-none p-0">
           {companies.map((company) => (
             <li
               key={company.id}
-              className="flex justify-between items-start p-2 border-b border-gray-200"
+              className="flex justify-between items-start p-2 border-b border-gray-200 gap-4"
             >
-              <div className="flex flex-row justify-start items-start gap-2 w-[75%]  ">
+              <div className="flex flex-row justify-start items-start gap-2  w-[90%]   ">
                 <img
                   src={company.logo}
                   className="w-10 h-10 rounded-xl"
                   alt={`${company.name} logo`}
                 />
-                <div className="flex flex-col justify-start items-start">
-                  <p className="font-medium text-blue-2">{company.name}</p>
-                  <p className="text-xs text-gray-4">{company.email}</p>
+                <div className="flex flex-col  justify-start items-start">
+                  <p className="font-medium text-13 text-blue-2">{company.name}</p>
+                  <p className="text-11 text-gray-4">{company.email}</p>
                 </div>
               </div>
-              <div className="flex flex-col justify-start items-start">
+              <div className="flex flex-col justify-center items-start w-1/5">
                 <p className="font-Arial text-14 pt-1">
                   {company.studentsNumber}
                 </p>
@@ -106,7 +106,7 @@ const CompanyList = () => {
 
       <div className="flex flex-row w-full justify-end pr-3  pt-2">
         {" "}
-        <button className="bg-blue-5 bg-opacity-80 rounded-md py-1 px-3 text-white text-xs ">
+        <button className="bg-blue-5 bg-opacity-75 rounded-md py-1 px-3 text-white text-xs ">
           Add a new company
         </button>
       </div>
