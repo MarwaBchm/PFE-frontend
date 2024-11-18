@@ -52,6 +52,13 @@ const sidebarItems = [
   },
   {
     id: 8,
+    label: "Profile",
+    image: "/icons/not-selected/settings.png",
+    selectedImage: "/icons/selected/settings.png",
+    path: "/dashboard/profile",
+  },
+  {
+    id: 9,
     label: "Sign Out",
     image: "/icons/not-selected/logout.png",
     selectedImage: "/icons/selected/logout.png",

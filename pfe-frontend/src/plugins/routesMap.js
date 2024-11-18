@@ -6,6 +6,8 @@ const routeMap = {
   "/dashboard/defenseSchedule": "Defense Schedule",
   "/dashboard/emails": "Emails",
   "/dashboard/settings": "Settings",
+  "/dashboard/profile": "Profile",
+
 };
 
 export default routeMap;

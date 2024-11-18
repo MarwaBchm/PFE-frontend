@@ -9,6 +9,8 @@ import Emails from "../components/emails";
 import DefenseSchedule from "../components/defenseSchedule";
 import Deadlines from "../components/deadlines";
 import Settings from "../components/settings";
+import ProfilePage from "../components/profile";
+
 const AppRoutes = () => {
   return (
     <Router>
@@ -22,6 +24,8 @@ const AppRoutes = () => {
           <Route path="defenseSchedule" element={<DefenseSchedule />} />
           <Route path="deadlines" element={<Deadlines />} />
           <Route path="settings" element={<Settings />} />
+          <Route path="profile" element={<ProfilePage />} />
+
         </Route>
       </Routes>
     </Router>
