@@ -5,15 +5,15 @@ import { Outlet } from "react-router-dom";
 
 const Dashboard = () => {
   return (
-    <div className="flex h-screen ">
+    <div className="flex h-screen lg:overflow-y-hidden">
       {/* Sidebar */}
       <Sidebar />
-      <div className="flex flex-col flex-1">
+      <div className="flex flex-col flex-1 overflow-y-auto">
         {/* Navbar */}
         <Navbar />
         {/* Main Content */}
-        <main className="flex-1 p-2 pt-4 w-full h-full bg-blue-3">
-          <div className=" p-2  flex  overflow-y-auto  ">
+        <main className="flex-1 p-2 pt-4 w-full pb-0 pr-0 bg-blue-3 ">
+          <div className="  flex  ">
             <Outlet /> {/* This renders the nested routes */}
           </div>
         </main>

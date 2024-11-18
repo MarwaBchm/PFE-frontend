@@ -52,6 +52,13 @@ const sidebarItems = [
   },
   {
     id: 8,
+    label: "Profile",
+    image: "/icons/not-selected/settings.png",
+    selectedImage: "/icons/selected/settings.png",
+    path: "/dashboard/profile",
+  },
+  {
+    id: 9,
     label: "Sign Out",
     image: "/icons/not-selected/logout.png",
     selectedImage: "/icons/selected/logout.png",
@@ -117,7 +124,7 @@ const Sidebar = () => {
       {/* Sidebar */}
       <div
         className={`sidebar-container bg-white pt-2 shadow-lg h-full transition-all duration-500 overflow-y-auto ${
-          isOpen ? "w-48 sm:w-48 lg:w-64" : "w-16"
+          isOpen ? "w-48 sm:w-48 lg:w-60" : "w-16"
         }`}
       >
         {/* Sidebar Content */}
