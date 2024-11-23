@@ -1,0 +1,18 @@
+.mini-sidebar {
+  display: flex;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.mini-sidebar.expanded {
+  width: auto;
+  opacity: 1;
+}
+
+.collapsed-item {
+  display: none;
+}
+
+.mini-sidebar:not(.expanded) {
+  width: 64px; /* or any suitable size */
+}
