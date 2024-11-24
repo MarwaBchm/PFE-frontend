@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import TextField from "@mui/material/TextField";
 
 const StudentList = ({ searchQuery }) => {
   const [students] = useState([
     {
       id: 1,
-      fullName: "Ahmed Mustafa",
+      firstName: "Ahmed",
+      lastName: "Mustafa",
       email: "ahmed@univ-tlemcen.dz",
       major: "Artificial Intelligence",
       ranking: "1st",
@@ -14,7 +16,8 @@ const StudentList = ({ searchQuery }) => {
     },
     {
       id: 2,
-      fullName: "Amina Khaled",
+      firstName: "Amina",
+      lastName: "Khaled",
       email: "amina@univ-tlemcen.dz",
       major: "Artificial Intelligence",
       ranking: "15th",
@@ -24,7 +27,8 @@ const StudentList = ({ searchQuery }) => {
     },
     {
       id: 3,
-      fullName: "Mohammed Ali",
+      firstName: "Mohammed",
+      lastName: "Ali",
       email: "mohammed@univ-tlemcen.dz",
       major: "Software Engineering",
       ranking: "21st",
@@ -34,7 +38,8 @@ const StudentList = ({ searchQuery }) => {
     },
     {
       id: 4,
-      fullName: "Layla Nasser",
+      firstName: "Layla",
+      lastName: "Nasser",
       email: "layla@univ-tlemcen.dz",
       major: "Information Systems",
       ranking: "22nd",
@@ -44,7 +49,8 @@ const StudentList = ({ searchQuery }) => {
     },
     {
       id: 5,
-      fullName: "Omar Saeed",
+      firstName: "Omar",
+      lastName: "Saeed",
       email: "omar@univ-tlemcen.dz",
       major: "Artificial Intelligence",
       ranking: "1st",
@@ -54,7 +60,8 @@ const StudentList = ({ searchQuery }) => {
     },
     {
       id: 6,
-      fullName: "Salma Ahmed",
+      firstName: "Salma",
+      lastName: "Ahmed",
       email: "salma@univ-tlemcen.dz",
       major: "Software Engineering",
       ranking: "10th",
@@ -64,7 +71,8 @@ const StudentList = ({ searchQuery }) => {
     },
     {
       id: 7,
-      fullName: "Youssef Hassan",
+      firstName: "Youssef",
+      lastName: "Hassan",
       email: "youssef@univ-tlemcen.dz",
       major: "Network Systems",
       ranking: "19th",
@@ -74,7 +82,8 @@ const StudentList = ({ searchQuery }) => {
     },
     {
       id: 8,
-      fullName: "Nour El-Din",
+      firstName: "Nour",
+      lastName: "El-Din",
       email: "nour@univ-tlemcen.dz",
       major: "Network Systems",
       ranking: "3rd",
@@ -84,7 +93,8 @@ const StudentList = ({ searchQuery }) => {
     },
     {
       id: 9,
-      fullName: "Fatima Zahra",
+      firstName: "Fatima",
+      lastName: "Zahra",
       email: "fatima@univ-tlemcen.dz",
       major: "Information Systems",
       ranking: "7th",
@@ -94,7 +104,8 @@ const StudentList = ({ searchQuery }) => {
     },
     {
       id: 10,
-      fullName: "Karim Fathi",
+      firstName: "Karim",
+      lastName: "Fathi",
       email: "karim@univ-tlemcen.dz",
       major: "Network Systems",
       ranking: "4th",
@@ -103,6 +114,19 @@ const StudentList = ({ searchQuery }) => {
       projectType: "NULL",
     },
   ]);
+
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setSelectedImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -132,12 +156,14 @@ const StudentList = ({ searchQuery }) => {
     return "text-red-1";
   };
 
-  const filteredStudents = students.filter(
-    (student) =>
-      student.fullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  const filteredStudents = students.filter((student) => {
+    const fullName = `${student.firstName} ${student.lastName}`.toLowerCase();
+    return (
+      fullName.includes(searchQuery.toLowerCase()) ||
       student.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
       student.major.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+    );
+  });
 
   return (
     <div className="student-list bg-white rounded-xl  px-2">
@@ -156,7 +182,7 @@ const StudentList = ({ searchQuery }) => {
       </div>
 
       {/* Scrollable List of Students */}
-      <div className="max-h-96 overflow-y-auto">
+      <div className="max-h-80 overflow-y-auto">
         <ul className="list-none p-0">
           {filteredStudents.map((student) => (
             <li
@@ -167,7 +193,8 @@ const StudentList = ({ searchQuery }) => {
                 <img src="/list.jpg" className="w-9 h-9 rounded-xl" />
                 <div className="flex flex-col justify-start items-start">
                   <p className="font-medium text-13 text-blue-2">
-                    {student.fullName}
+                    {student.lastName}
+                    {student.firstName}
                   </p>
                   <p className=" text-11 text-gray-4">{student.email}</p>
                 </div>
@@ -205,21 +232,156 @@ const StudentList = ({ searchQuery }) => {
 
       {/* Popup Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
-            <h3 className="text-lg font-bold mb-4">Edit Student</h3>
-            <p>
-              <strong>Full Name:</strong> {selectedStudent.fullName}
-            </p>
-            <p>
-              <strong>Email:</strong> {selectedStudent.email}
-            </p>
-            <button
-              onClick={closeModal}
-              className="mt-4 bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600"
-            >
-              Close
-            </button>
+        <div className="fixed right-0 -top-16 h-screen w-full flex items-center justify-center bg-gray-4 bg-opacity-50 backdrop-blur-sm">
+          <div className="bg-white p-6 rounded-lg shadow-lg   border border-dashed border-blue-5 flex flex-col justify-center items-center">
+            <h3 className="text-lg font-bold mb-6">✏️ Edit Student </h3>
+
+            <div className="flex flex-row w-full justify-between items-center">
+              <div className=" flex flex-col w-full justify-between items-start gap-2 ">
+                <div className="flex flex-col w-full">
+                  <label
+                    htmlFor="firstName"
+                    className="text-gray-2 text-13  pl-1 mb-0.5"
+                  >
+                    First Name
+                  </label>
+                  <input
+                    id="firstName"
+                    type="text"
+                    value={selectedStudent.firstName}
+                    onChange={(e) =>
+                      setSelectedStudent({
+                        ...selectedStudent,
+                        firstName: e.target.value,
+                      })
+                    }
+                    className=" w-full text-blue-2 text-13 py-1 px-3 bg-gray-50 border border-gray-200 rounded-md outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                <div className="flex flex-col w-full ">
+                  <label
+                    htmlFor="lastName"
+                    className="text-gray-2 text-13  pl-1 mb-0.5"
+                  >
+                    Last Name
+                  </label>
+                  <input
+                    id="lastName"
+                    type="text"
+                    value={selectedStudent.lastName}
+                    onChange={(e) =>
+                      setSelectedStudent({
+                        ...selectedStudent,
+                        lastName: e.target.value,
+                      })
+                    }
+                    className="w-full text-blue-2 text-13 py-1 px-3 bg-gray-50 border border-gray-200 rounded-md outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+              <div className="relative w-1/3 ml-4">
+                <label
+                  htmlFor="imageInput"
+                  className="block w-24 h-24 rounded-full overflow-hidden border-2 border-dashed border-gray-300 cursor-pointer hover:border-blue-500"
+                >
+                  {selectedImage ? (
+                    <img
+                      src={selectedImage}
+                      alt="Selected"
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="flex items-center justify-center h-full text-gray-400">
+                      <span>Select Image</span>
+                    </div>
+                  )}
+                </label>
+                <input
+                  id="imageInput"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="hidden"
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-col w-full ">
+              <label
+                htmlFor="email"
+                className="text-gray-2 text-13  pl-1 pt-2 mb-0.5"
+              >
+                Email address
+              </label>
+              <input
+                id="email"
+                type="text"
+                value={selectedStudent.email}
+                onChange={(e) =>
+                  setSelectedStudent({
+                    ...selectedStudent,
+                    email: e.target.value,
+                  })
+                }
+                className="w-full text-blue-2 text-13 py-1 px-3 bg-gray-50 border border-gray-200 rounded-md outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div className=" flex flex-row justify-center items-start pt-2 gap-2">
+              <div className="flex flex-col w-full ">
+                <label
+                  htmlFor="major"
+                  className="text-gray-2 text-13  pl-1 mb-0.5"
+                >
+                  Major
+                </label>
+                <input
+                  id="major"
+                  type="text"
+                  value={selectedStudent.major}
+                  onChange={(e) =>
+                    setSelectedStudent({
+                      ...selectedStudent,
+                      major: e.target.value,
+                    })
+                  }
+                  className="w-full text-blue-2 text-13 py-1 px-3 bg-gray-50 border border-gray-200 rounded-md outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              <div className="flex flex-col w-full ">
+                <label
+                  htmlFor="masterAverage"
+                  className="text-gray-2 text-13  pl-1 mb-0.5"
+                >
+                  Average Master
+                </label>
+                <input
+                  id="masterAverage"
+                  type="text"
+                  value={selectedStudent.masterAverage}
+                  onChange={(e) =>
+                    setSelectedStudent({
+                      ...selectedStudent,
+                      masterAverage: e.target.value,
+                    })
+                  }
+                  className="w-full text-blue-2 text-13 py-1 px-3 bg-gray-50 border border-gray-200 rounded-md outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            </div>
+            <div className=" flex flex-row justify-end mt-6 w-full gap-3">
+              <button
+                onClick={closeModal}
+                className="mt-4 bg-red-1 text-13 text-white py-1 px-4 rounded hover:bg-red-600"
+              >
+                Discard
+              </button>{" "}
+              <button
+                onClick={closeModal}
+                className="mt-4 bg-blue-6 text-13 text-white py-1 px-4 rounded hover:bg-blue-800"
+              >
+                Save Changes
+              </button>
+            </div>
           </div>
         </div>
       )}
