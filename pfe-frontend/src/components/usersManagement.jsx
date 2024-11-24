@@ -60,7 +60,7 @@ const UsersManagement = () => {
       setIsAnimating(false);
     }, 300); // Match transition duration
   };
-
+ const swicthToList=()=>(switchActionWithAnimation("list"));
   const renderAddForm = () => (
     <div
       className={` rounded-md w-full  h-full max-w-lg mx-auto transition-transform duration-500 ease-in-out ${
@@ -71,9 +71,9 @@ const UsersManagement = () => {
           : "translate-x-0 opacity-100"
       }`}
     >
-      {userType === "Students" && <AddStudent />}
-      {userType === "Professors" && <AddProfessor />}
-      {userType === "Companies" && <AddCompany />}
+      {userType === "Students" && <AddStudent close={swicthToList}/>}
+      {userType === "Professors" && <AddProfessor close={swicthToList}/>}
+      {userType === "Companies" && <AddCompany close={swicthToList}/>}
     </div>
   );
 

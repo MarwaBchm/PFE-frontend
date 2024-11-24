@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 
-function AddProfessor() {
+function AddProfessor({close}) {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -204,7 +204,7 @@ function AddProfessor() {
 
         <div className="flex flex-row justify-end w-full gap-3">
           <button
-            type="reset"
+            onClick={close}
             className="bg-red-1 text-14 font-Arial text-white py-1 px-4 rounded-md hover:bg-red-2 focus:outline-none hover:text-red-3"
           >
             Cancel

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 
-function AddStudent() {
+function AddStudent({ close }) {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -210,7 +210,7 @@ function AddStudent() {
 
         <div className="flex flex-row justify-end w-full gap-3">
           <button
-            type="reset"
+            onClick={close}
             className="bg-red-1 text-14 font-Arial text-white py-1 px-4 rounded-md hover:bg-red-2 focus:outline-none hover:text-red-3"
           >
             Cancel
