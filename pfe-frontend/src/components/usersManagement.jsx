@@ -38,6 +38,7 @@ const UsersManagement = () => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [nextAction, setNextAction] = useState(null); // Used to queue the next action
   const [direction, setDirection] = useState("right"); // Determines animation direction
+  const [searchQuery, setSearchQuery] = useState("");
 
   const userTypes = ["Students", "Professors", "Companies"];
   const stats = {
@@ -155,6 +156,8 @@ const UsersManagement = () => {
             type="text"
             className="bg-gray-50 w-2/5 rounded-md py-1 px-3 text-gray-600 placeholder:text-gray-1 text-sm focus:outline-none focus:ring-1 focus:ring-blue-6"
             placeholder={`Search ${userType.toLowerCase()} by name, email...`}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
           <button
             className="px-4 py-2 bg-blue-5 bg-opacity-80 text-white text-sm font-medium rounded-md"
@@ -166,9 +169,13 @@ const UsersManagement = () => {
 
         {/* Render the appropriate list component based on userType */}
         <div className="p-4 pb-0 w-full rounded-md shadow-md ">
-          {userType === "Students" && <StudentList />}
-          {userType === "Professors" && <ProfessorList />}
-          {userType === "Companies" && <CompanyList />}
+          {userType === "Students" && <StudentList searchQuery={searchQuery} />}
+          {userType === "Professors" && (
+            <ProfessorList searchQuery={searchQuery} />
+          )}
+          {userType === "Companies" && (
+            <CompanyList searchQuery={searchQuery} />
+          )}
         </div>
       </div>
     </div>

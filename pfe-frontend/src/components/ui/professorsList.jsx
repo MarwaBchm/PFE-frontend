@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const ProfessorList = () => {
+const ProfessorList = ({searchQuery}) => {
   const [professors] = useState([
     {
       id: 1,
@@ -39,7 +39,6 @@ const ProfessorList = () => {
     },
   ]);
 
-  const [searchQuery, setSearchQuery] = useState("");
   const [selectedProfessor, setSelectedProfessor] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const CompanyList = () => {
+const CompanyList = ({searchQuery}) => {
   const [companies] = useState([
     {
       id: 1,
@@ -56,6 +56,14 @@ const CompanyList = () => {
     setIsModalOpen(false);
     setSelectedCompany(null);
   };
+  const filteredCompanies = companies.filter(
+    (company) =>
+      company.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      company.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      company.studentsNumber.toLowerCase().includes(searchQuery.toLowerCase())||
+      company.representative.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
 
   return (
     <div className="company-list bg-white rounded-xl">
@@ -75,7 +83,7 @@ const CompanyList = () => {
       {/* Scrollable List of Companies */}
       <div className="max-h-80 overflow-y-auto">
         <ul className="list-none p-0">
-          {companies.map((company) => (
+          {filteredCompanies.map((company) => (
             <li
               key={company.id}
               className="flex justify-between items-center p-2 border-b border-gray-200 gap-4"

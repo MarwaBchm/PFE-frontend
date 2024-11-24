@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const StudentList = ({ toggleView }) => {
+const StudentList = ({ searchQuery }) => {
   const [students] = useState([
     {
       id: 1,
@@ -104,7 +104,6 @@ const StudentList = ({ toggleView }) => {
     },
   ]);
 
-  const [searchQuery, setSearchQuery] = useState("");
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
