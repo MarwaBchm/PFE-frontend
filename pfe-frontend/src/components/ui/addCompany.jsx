@@ -2,11 +2,11 @@ import React, { useState, useRef } from "react";
 
 function AddCompany() {
   const [formData, setFormData] = useState({
-    name: "",
+    companyName: "",
     email: "",
-    age: "",
-    grade: "",
-    major: "",
+    dateOfEstablishment: "",
+    industry: "",
+    specialization: "",
   });
 
   const fileInputRef = useRef(null);
@@ -21,7 +21,7 @@ function AddCompany() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Student Data:", formData);
+    console.log("Company Data:", formData);
     // TODO: Add actual submission logic
   };
 
@@ -35,7 +35,7 @@ function AddCompany() {
       const reader = new FileReader();
       reader.onload = (event) => {
         const csvText = event.target.result;
-        // TODO: Parse CSV and import students
+        // TODO: Parse CSV and import companies
         console.log("CSV Content:", csvText);
       };
       reader.readAsText(file);
@@ -43,97 +43,123 @@ function AddCompany() {
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white p-8 rounded-xl shadow-md">
-      <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
-        📚 Add New Student
+    <div className="max-w-md mx-auto bg-white rounded-xl shadow-md px-6 py-6 mt-3">
+      <h2 className="text-17 font-Roboto font-bold text-center text-blue-2">
+        🏢 Add New Company
       </h2>
-
+      <h2 className="text-14 font-Arial text-center my-1 text-gray-3">or</h2>
+      <div className="flex flex-row w-full justify-center mb-4 border-b">
+        <button
+          type="button"
+          onClick={handleCSVImport}
+          className="bg-green-600 text-white text-13 font-Roboto mb-2 py-1 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+        >
+          Import from CSV file
+        </button>
+      </div>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Name
+          <label
+            htmlFor="companyName"
+            className="block text-13 text-gray-3 mb-0.5 pl-1"
+          >
+            Company Name
           </label>
           <input
+            id="companyName"
+            name="companyName"
             type="text"
-            name="name"
-            value={formData.name}
+            value={formData.companyName}
             onChange={handleInputChange}
+            className="w-full border-gray-200 text-blue-2 font-Arial text-13 py-1.5 px-3 focus:outline-none focus:border-blue-600 bg-gray-50 rounded-md shadow-sm focus:ring-indigo-500"
             required
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="email"
+            className="block text-13 text-gray-3 mb-0.5 pl-1"
+          >
             Email
           </label>
           <input
-            type="email"
+            id="email"
             name="email"
+            type="email"
             value={formData.email}
             onChange={handleInputChange}
+            className="w-full border-gray-200 text-blue-2 font-Arial text-13 py-1.5 px-3 focus:outline-none focus:border-blue-600 bg-gray-50 rounded-md shadow-sm focus:ring-indigo-500"
             required
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           />
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Age
-            </label>
-            <input
-              type="number"
-              name="age"
-              value={formData.age}
-              onChange={handleInputChange}
-              required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Grade
-            </label>
-            <input
-              type="text"
-              name="grade"
-              value={formData.grade}
-              onChange={handleInputChange}
-              required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-            />
-          </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Major
+          <label
+            htmlFor="dateOfEstablishment"
+            className="block text-13 text-gray-3 mb-0.5 pl-1"
+          >
+            Date of Establishment
           </label>
           <input
-            type="text"
-            name="major"
-            value={formData.major}
+            id="dateOfEstablishment"
+            name="dateOfEstablishment"
+            type="date"
+            value={formData.dateOfEstablishment}
             onChange={handleInputChange}
+            className="w-full border-gray-200 text-blue-2 font-Arial text-13 py-1.5 px-3 focus:outline-none focus:border-blue-600 bg-gray-50 rounded-md shadow-sm focus:ring-indigo-500"
             required
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           />
         </div>
 
-        <div className="flex space-x-4">
+        <div>
+          <label
+            htmlFor="industry"
+            className="block text-13 text-gray-3 mb-0.5 pl-1"
+          >
+            Industry
+          </label>
+          <input
+            id="industry"
+            name="industry"
+            type="text"
+            value={formData.industry}
+            onChange={handleInputChange}
+            className="w-full border-gray-200 text-blue-2 font-Arial text-13 py-1.5 px-3 focus:outline-none focus:border-blue-600 bg-gray-50 rounded-md shadow-sm focus:ring-indigo-500"
+            required
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="specialization"
+            className="block text-13 text-gray-3 mb-0.5 pl-1"
+          >
+            Specialization
+          </label>
+          <input
+            id="specialization"
+            name="specialization"
+            type="text"
+            value={formData.specialization}
+            onChange={handleInputChange}
+            className="w-full border-gray-200 text-blue-2 font-Arial text-13 py-1.5 px-3 focus:outline-none focus:border-blue-600 bg-gray-50 rounded-md shadow-sm focus:ring-indigo-500"
+            required
+          />
+        </div>
+
+        <div className="flex flex-row justify-end w-full gap-3">
+          <button
+            type="reset"
+            className="bg-red-1 text-14 font-Arial text-white py-1 px-4 rounded-md hover:bg-red-2 focus:outline-none hover:text-red-3"
+          >
+            Cancel
+          </button>
           <button
             type="submit"
-            className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="bg-blue-6 text-14 font-Arial text-white py-1 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
-            Add company
-          </button>
-
-          <button
-            type="button"
-            onClick={handleCSVImport}
-            className="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
-          >
-            Import CSV
+            Add Company
           </button>
         </div>
       </form>
@@ -148,4 +174,5 @@ function AddCompany() {
     </div>
   );
 }
+
 export default AddCompany;

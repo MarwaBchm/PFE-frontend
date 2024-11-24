@@ -1,13 +1,12 @@
 import React, { useState, useLayoutEffect, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
-
+import { Link } from "react-router-dom"; // Import Link for routing
 const sidebarItems = [
   {
     id: 1,
     label: "Dashboard",
     image: "/icons/not-selected/home.png",
     selectedImage: "/icons/selected/home.png",
-    path: "/dashboard/Home",
+    path: "/dashboard/home",
   },
   {
     id: 2,
@@ -63,15 +62,15 @@ const sidebarItems = [
     label: "Sign Out",
     image: "/icons/not-selected/logout.png",
     selectedImage: "/icons/selected/logout.png",
-    path: "/dashboard/signOut",
   },
 ];
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const [activeItem, setActiveItem] = useState(1);
   const indicatorRef = useRef(null);
-  const location = useLocation();
 
+  // Toggle sidebar visibility
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
@@ -89,24 +88,22 @@ const Sidebar = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Handle item click and update active item
+  const handleItemClick = (id) => {
+    setActiveItem(id);
+  };
+
   // Update the position of the indicator
   useLayoutEffect(() => {
     const updateIndicatorPosition = () => {
-      // Ensure location.pathname is a string and sanitize it
-      const sanitizedPathname = location.pathname
-        .replace(/\//g, "-")
-        .replace(/[^a-zA-Z0-9\-]/g, ""); // Remove invalid characters
-
-      // Find the active link based on the sanitized pathname
-      const activeLink = document.querySelector(
-        `.sidebar-item-${sanitizedPathname}`
-      );
+      const activeLink = document.querySelector(`.sidebar-item-${activeItem}`);
       const sidebarContainer = document.querySelector(".sidebar-container");
 
       if (activeLink && indicatorRef.current && sidebarContainer) {
         const sidebarTop = sidebarContainer.offsetTop;
         const { offsetTop, offsetHeight } = activeLink;
 
+        // Calculate the top position and height for the indicator
         const topPosition = offsetTop - sidebarTop + (isOpen ? 0 : 5);
         const indicatorHeight = offsetHeight;
 
@@ -115,32 +112,36 @@ const Sidebar = () => {
       }
     };
 
-    // Update the indicator position when pathname or sidebar state changes
     updateIndicatorPosition();
 
-    // Update position on window resize
+    // Re-calculate the position on resize
     window.addEventListener("resize", updateIndicatorPosition);
     return () => window.removeEventListener("resize", updateIndicatorPosition);
-  }, [location.pathname, isOpen]);
+  }, [activeItem, isOpen]);
 
   return (
     <div className="flex h-full">
+      {/* Sidebar */}
       <div
         className={`sidebar-container bg-white pt-2 shadow-lg h-full transition-all duration-500 overflow-y-auto ${
           isOpen ? "w-48 sm:w-48 lg:w-60" : "w-16"
         }`}
       >
+        {/* Sidebar Content */}
         <div className="py-2 relative">
+          {/* Animated Indicator */}
           <div
             ref={indicatorRef}
             className="absolute right-0 w-1 bg-blue-4 rounded-md transition-all duration-500"
           ></div>
 
+          {/* Logo */}
           <div
-            className={`text-2xl font-NovaFlat flex flex-row items-center gap-2 lg:pl-4 pb-4 border-b border-gray-300 border-opacity-30`}
+            className={`text-2xl font-NovaFlat flex flex-row items-center gap-2  lg:pl-4 pb-4 border-b border-gray-300 border-opacity-30`}
           >
+            {/* Hamburger Button */}
             <button
-              className="lg:hidden mb-4 p-2 text-black rounded-md focus:outline-none"
+              className="lg:hidden mb-4 p-2 text-black  rounded-md  focus:outline-none"
               onClick={toggleSidebar}
             >
               {!isOpen && (
@@ -149,6 +150,7 @@ const Sidebar = () => {
                   className="h-5"
                 />
               )}
+
               {isOpen && (
                 <img src="/icons/selected/menu-opened.png" className="h-5" />
               )}
@@ -159,36 +161,39 @@ const Sidebar = () => {
             </h1>
           </div>
 
+          {/* Navigation */}
           <nav className="space-y-2 mt-4">
-            {sidebarItems.map((item) => {
-              const sanitizedPath = item.path
-                .replace(/\//g, "-")
-                .replace(/[^a-zA-Z0-9\-]/g, "");
-              return (
-                <Link
-                  key={item.id}
-                  to={item.path}
-                  className={`sidebar-item-${sanitizedPath} relative flex flex-row items-center py-2 px-3 mx-2 cursor-pointer rounded ${
-                    location.pathname === item.path
-                      ? "bg-blue-100 text-blue-700 font-medium"
-                      : "hover:bg-blue-50 text-gray-700"
+            {sidebarItems.map((item) => (
+              <Link
+                key={item.id}
+                to={item.path}
+                onClick={() => handleItemClick(item.id)}
+                className={`sidebar-item-${
+                  item.id
+                } relative flex flex-row items-center py-2 px-3 mx-2 cursor-pointer rounded ${
+                  item.isAction
+                    ? "text-white hover:bg-red-700"
+                    : "hover:bg-blue-50"
+                }`}
+              >
+                {/* Icon */}
+                <img
+                  src={activeItem === item.id ? item.selectedImage : item.image}
+                  alt={item.label}
+                  className="w-6 h-6 mr-3"
+                />
+                {/* Label */}
+                <span
+                  className={`${isOpen ? "block" : "hidden"} text-sm ${
+                    activeItem === item.id
+                      ? "text-blue-2 font-medium"
+                      : "text-gray-1 font-normal"
                   }`}
                 >
-                  <img
-                    src={
-                      location.pathname === item.path
-                        ? item.selectedImage
-                        : item.image
-                    }
-                    alt={item.label}
-                    className="w-6 h-6 mr-3"
-                  />
-                  <span className={`${isOpen ? "block" : "hidden"} text-sm`}>
-                    {item.label}
-                  </span>
-                </Link>
-              );
-            })}
+                  {item.label}
+                </span>
+              </Link>
+            ))}
           </nav>
         </div>
       </div>

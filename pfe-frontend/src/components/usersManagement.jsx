@@ -62,7 +62,7 @@ const UsersManagement = () => {
 
   const renderAddForm = () => (
     <div
-      className={`p-4 bg-white rounded-md shadow-md w-full max-w-lg mx-auto transition-transform duration-500 ease-in-out ${
+      className={` rounded-md w-full  h-full max-w-lg mx-auto transition-transform duration-500 ease-in-out ${
         isAnimating
           ? direction === "right"
             ? "-translate-x-full opacity-100"
@@ -73,29 +73,6 @@ const UsersManagement = () => {
       {userType === "Students" && <AddStudent />}
       {userType === "Professors" && <AddProfessor />}
       {userType === "Companies" && <AddCompany />}
-      <form>
-        <input
-          type="text"
-          placeholder={`Enter ${userType.slice(0, -1).toLowerCase()} name`}
-          className="border w-full px-3 py-2 mb-4 rounded-md focus:outline-none"
-        />
-        <div className="flex gap-4">
-          <button
-            type="button"
-            onClick={() => switchActionWithAnimation("list")}
-            className="px-4 py-2 bg-blue-500 text-white rounded-md"
-          >
-            Save {userType.slice(0, -1)}
-          </button>
-          <button
-            type="button"
-            onClick={() => switchActionWithAnimation("list")}
-            className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md"
-          >
-            Cancel
-          </button>
-        </div>
-      </form>
     </div>
   );
 
@@ -126,7 +103,7 @@ const UsersManagement = () => {
       </div>
 
       {/* Dropdown, Search, and Add Button */}
-      <div className="flex flex-col items-start bg-white mx-4 mt-2 rounded-xl shadow-md">
+      <div className="flex flex-col items-start bg-white mx-4 mt-2 rounded-xl shadow-md mb-6">
         <div className="flex lg:flex-row flex-col justify-between items-center w-full px-6 pt-4">
           {/* Title with Dropdown */}
           <div className="relative">
@@ -176,7 +153,7 @@ const UsersManagement = () => {
           </div>
           <input
             type="text"
-            className="bg-gray-100 w-2/5 rounded-md py-1 px-3 text-gray-700 text-sm"
+            className="bg-gray-50 w-2/5 rounded-md py-1 px-3 text-gray-600 placeholder:text-gray-1 text-sm focus:outline-none focus:ring-1 focus:ring-blue-6"
             placeholder={`Search ${userType.toLowerCase()} by name, email...`}
           />
           <button
@@ -198,10 +175,26 @@ const UsersManagement = () => {
   );
 
   return (
-    <div className="flex flex-col w-full overflow-hidden">
+    <div className="flex flex-col w-full h-full ">
       {currentAction === "add" ? renderAddForm() : renderListView()}
     </div>
   );
 };
 
 export default UsersManagement;
+/*<div className="flex gap-4">
+          <button
+            type="button"
+            onClick={() => switchActionWithAnimation("list")}
+            className="px-4 py-2 bg-blue-500 text-white rounded-md"
+          >
+            Save {userType.slice(0, -1)}
+          </button>
+          <button
+            type="button"
+            onClick={() => switchActionWithAnimation("list")}
+            className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md"
+          >
+            Cancel
+          </button>
+        </div>*/
