@@ -1,113 +1,293 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function Settings() {
-  const [username, setUsername] = useState('JohnDoe');
-  const [email, setEmail] = useState('johndoe@example.com');
-  const [phoneNumber, setPhoneNumber] = useState('+1234567890');
-  const [password, setPassword] = useState('');
-  const [nightMode, setNightMode] = useState(false);
-  const [notifications, setNotifications] = useState(true);
+  const [formData, setFormData] = useState({
+    firstname: "",
+    lastname: "",
+    major: "",
+    masterAverage: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [selectedImage, setSelectedImage] = useState("/profile.jpg");
 
+  // Handle input changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Handle image selection
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setSelectedImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // Handle delete account
+  const handleDeleteAccount = () => {
+    if (
+      window.confirm(
+        "Are you sure you want to delete your account? This action cannot be undone."
+      )
+    ) {
+      // Add logic to delete the account (API call or other)
+      console.log("Account deleted.");
+    }
+  };
+
+  // Handle save changes
   const handleSaveChanges = () => {
-    // Handle save changes logic here
-    alert('Changes saved successfully!');
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+    // Add logic to save changes (e.g., update profile settings via API)
+    console.log("Changes saved:", { ...formData, selectedImage });
   };
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <h2 className="text-2xl font-bold mb-6">Settings</h2>
+    <div className="w-full h-full relative">
+      <div className="flex flex-col h-full mx-4 my-6 rounded-md p-4 bg-white">
+        <h2 className="text-2xl text-blue-2 font-medium mb-4">My Account</h2>
+        <div className="flex flex-row w-full justify-between mx-5">
+          <div className="flex flex-col w-1/3 space-y-4">
+            <div>
+              <label
+                htmlFor="firstname"
+                className="block text-sm font-medium text-gray-700 pl-1"
+              >
+                First Name
+              </label>
+              <input
+                id="firstname"
+                type="text"
+                name="firstname"
+                placeholder="First Name"
+                value={formData.firstname}
+                onChange={handleChange}
+                className="border border-gray-300 rounded-md mt-1 px-3 py-2 w-full text-14 text-blue-2 focus:outline-none focus:border-2 focus:border-blue-500"
+              />
+            </div>
 
-      {/* Personal Information Section */}
-      <div className="bg-white shadow-md rounded-lg p-6 mb-6">
-        <h3 className="text-xl font-semibold mb-4">Personal Information</h3>
-        <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Username</label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-            />
+            <div>
+              <label
+                htmlFor="lastname"
+                className=" pl-1 block text-sm font-medium text-gray-700"
+              >
+                Last Name
+              </label>
+              <input
+                id="lastname"
+                type="text"
+                name="lastname"
+                placeholder="Last Name"
+                value={formData.lastname}
+                onChange={handleChange}
+                className="border border-gray-300 rounded-md mt-1 px-3 py-2 w-full text-14 text-blue-2 focus:outline-none focus:border-2 focus:border-blue-500"
+              />
+            </div>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-            />
+          <div className="flex flex-row items-center ml-6 mr-10">
+            <div className=" flex flex-col mx-4">
+              <button
+                onClick={handleSaveChanges}
+                className="mt-4 w-full bg-blue-500 bg-opacity-80 text-sm text-white py-1 px-4 rounded hover:bg-blue-600"
+              >
+                Save
+              </button>
+              <button
+                onClick={handleDeleteAccount}
+                className="mt-4 w-full bg-red-500 bg-opacity-80 text-sm text-white py-1 px-4 rounded hover:bg-red-600"
+              >
+                Discard
+              </button>
+            </div>
+            <div className="relative">
+              <label
+                htmlFor="imageInput"
+                className="block w-24 h-24 rounded-full overflow-hidden border-2 border-dashed border-gray-300 cursor-pointer hover:border-blue-500"
+              >
+                {selectedImage ? (
+                  <img
+                    src={selectedImage}
+                    alt="Selected"
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="flex items-center justify-center h-full text-gray-400">
+                    <span>Select Image</span>
+                  </div>
+                )}
+              </label>
+              <input
+                id="imageInput"
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="hidden"
+              />
+            </div>
           </div>
+        </div>
+        <div className=" flex flex-col mt-4 gap-4">
+          <div className=" flex flex-row justify-between items-center mx-5 gap-16">
+            <div className="w-full">
+              <label
+                htmlFor="major"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Major
+              </label>
+              <input
+                id="major"
+                type="text"
+                name="major"
+                placeholder="Major"
+                value={formData.major}
+                onChange={handleChange}
+                className="border border-gray-300 rounded px-3 py-2 w-full"
+              />
+            </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Phone Number</label>
-            <input
-              type="tel"
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-            />
+            <div className=" w-full">
+              <label
+                htmlFor="masterAverage"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Master Average
+              </label>
+              <input
+                id="masterAverage"
+                type="text"
+                name="masterAverage"
+                placeholder="Master Average"
+                value={formData.masterAverage}
+                onChange={handleChange}
+                className="border border-gray-300 rounded px-3 py-2 w-full"
+              />
+            </div>
           </div>
-
+          <div className=" flex flex-row justify-between items-center mx-5 gap-16">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-              placeholder="Enter new password"
-            />
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Email
+              </label>
+              <input
+                id="email"
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={formData.email}
+                onChange={handleChange}
+                className="border border-gray-300 rounded px-3 py-2 w-full"
+              />
+            </div>
           </div>
         </div>
       </div>
-
-      {/* Account Settings Section */}
-      <div className="bg-white shadow-md rounded-lg p-6 mb-6">
-        <h3 className="text-xl font-semibold mb-4">Account Settings</h3>
-
-        <div className="flex items-center justify-between mb-4">
-          <span className="text-sm font-medium text-gray-700">Night Mode</span>
-          <button
-            onClick={() => setNightMode(!nightMode)}
-            className={`${
-              nightMode ? 'bg-indigo-600' : 'bg-gray-300'
-            } relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200`}
-          >
-            <span
-              className={`${
-                nightMode ? 'translate-x-6' : 'translate-x-1'
-              } inline-block w-4 h-4 transform bg-white rounded-full transition-transform`}
-            />
-          </button>
-        </div>
-
-        <div className="flex items-center justify-between mb-4">
-          <span className="text-sm font-medium text-gray-700">Enable Notifications</span>
-          <button
-            onClick={() => setNotifications(!notifications)}
-            className={`${
-              notifications ? 'bg-indigo-600' : 'bg-gray-300'
-            } relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200`}
-          >
-            <span
-              className={`${
-                notifications ? 'translate-x-6' : 'translate-x-1'
-              } inline-block w-4 h-4 transform bg-white rounded-full transition-transform`}
-            />
-          </button>
-        </div>
-      </div>
-
-      {/* Save Changes Button */}
-      <button
-        onClick={handleSaveChanges}
-        className="w-full py-2 px-4 bg-indigo-600 text-white rounded-md shadow-md hover:bg-indigo-700 transition duration-200"
-      >
-        Save Changes
-      </button>
     </div>
   );
 }
+/*
+ <div>
+              <label
+                htmlFor="major"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Major
+              </label>
+              <input
+                id="major"
+                type="text"
+                name="major"
+                placeholder="Major"
+                value={formData.major}
+                onChange={handleChange}
+                className="border border-gray-300 rounded px-3 py-2 w-full"
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="masterAverage"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Master Average
+              </label>
+              <input
+                id="masterAverage"
+                type="text"
+                name="masterAverage"
+                placeholder="Master Average"
+                value={formData.masterAverage}
+                onChange={handleChange}
+                className="border border-gray-300 rounded px-3 py-2 w-full"
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Email
+              </label>
+              <input
+                id="email"
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={formData.email}
+                onChange={handleChange}
+                className="border border-gray-300 rounded px-3 py-2 w-full"
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Password
+              </label>
+              <input
+                id="password"
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={formData.password}
+                onChange={handleChange}
+                className="border border-gray-300 rounded px-3 py-2 w-full"
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="confirmPassword"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Confirm Password
+              </label>
+              <input
+                id="confirmPassword"
+                type="password"
+                name="confirmPassword"
+                placeholder="Confirm Password"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                className="border border-gray-300 rounded px-3 py-2 w-full"
+              />
+            </div>
+          </div>
+          */

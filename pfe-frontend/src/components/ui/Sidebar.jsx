@@ -1,5 +1,6 @@
 import React, { useState, useLayoutEffect, useRef } from "react";
-import { Link } from "react-router-dom"; // Import Link for routing
+import { Link, useLocation } from "react-router-dom"; // Import useLocation for current route tracking
+
 const sidebarItems = [
   {
     id: 1,
@@ -50,15 +51,9 @@ const sidebarItems = [
     selectedImage: "/icons/selected/settings.png",
     path: "/dashboard/settings",
   },
+
   {
     id: 8,
-    label: "Profile",
-    image: "/icons/not-selected/settings.png",
-    selectedImage: "/icons/selected/settings.png",
-    path: "/dashboard/profile",
-  },
-  {
-    id: 9,
     label: "Sign Out",
     image: "/icons/not-selected/logout.png",
     selectedImage: "/icons/selected/logout.png",
@@ -69,6 +64,7 @@ const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [activeItem, setActiveItem] = useState(1);
   const indicatorRef = useRef(null);
+  const location = useLocation(); // Use location to get current route
 
   // Toggle sidebar visibility
   const toggleSidebar = () => {
@@ -88,10 +84,14 @@ const Sidebar = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Handle item click and update active item
-  const handleItemClick = (id) => {
-    setActiveItem(id);
-  };
+  // Update active item based on the current route
+  useLayoutEffect(() => {
+    const currentPath = location.pathname;
+    const activeItem = sidebarItems.find((item) => item.path === currentPath);
+    if (activeItem) {
+      setActiveItem(activeItem.id);
+    }
+  }, [location.pathname]); // Re-run when the pathname changes
 
   // Update the position of the indicator
   useLayoutEffect(() => {
@@ -137,11 +137,11 @@ const Sidebar = () => {
 
           {/* Logo */}
           <div
-            className={`text-2xl font-NovaFlat flex flex-row items-center gap-2  lg:pl-4 pb-4 border-b border-gray-300 border-opacity-30`}
+            className={`text-2xl font-NovaFlat flex flex-row items-center gap-2 lg:pl-4 pb-4 border-b border-gray-300 border-opacity-30`}
           >
             {/* Hamburger Button */}
             <button
-              className="lg:hidden mb-4 p-2 text-black  rounded-md  focus:outline-none"
+              className="lg:hidden mb-4 p-2 text-black rounded-md focus:outline-none"
               onClick={toggleSidebar}
             >
               {!isOpen && (
@@ -167,7 +167,7 @@ const Sidebar = () => {
               <Link
                 key={item.id}
                 to={item.path}
-                onClick={() => handleItemClick(item.id)}
+                onClick={() => setActiveItem(item.id)}
                 className={`sidebar-item-${
                   item.id
                 } relative flex flex-row items-center py-2 px-3 mx-2 cursor-pointer rounded ${

@@ -3,6 +3,9 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      animation: {
+        "fade-in": "fadeIn 0.3s ease-in-out",
+      },
       screens: {
         sm: "640px",
       },
@@ -16,6 +19,8 @@ module.exports = {
         Roboto: ["Roboto"],
       },
       fontSize: {
+        7: "0.4rem",
+        9: "0.525rem",
         10: "0.625rem", // 10px
         11: "0.6875rem", // 11px
         12: "0.75rem",
@@ -30,6 +35,7 @@ module.exports = {
           3: "#F4F7FE",
           4: "#4318FF",
           5: "#2684FF",
+          6: "#4F86FF",
         },
         red: { 1: "#EA4335", 2: "#FFEDED", 3: "#B30506" },
         gray: { 1: "#A3AED0", 2: "#707EAE", 3: "#A0AEC0", 4: "#718096" },
