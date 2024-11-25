@@ -1,8 +1,17 @@
 import React, { useState } from "react";
 
 const SubjectsManagement = () => {
-  const [userRole, setUserRole] = useState("Student"); // Default view
+  const [userRole, setUserRole] = useState("ProfResponsable"); // Default view
   const [popupContent, setPopupContent] = useState(null);
+
+  // Add the popup handlers here
+  const handleShowPopup = (topic) => {
+    setPopupContent(topic); // Set the selected topic for the popup
+  };
+
+  const handleClosePopup = () => {
+    setPopupContent(null); // Clear popup content to close it
+  };
 
   // Topics state
   const [topics, setTopics] = useState([
@@ -64,9 +73,6 @@ const SubjectsManagement = () => {
 
   const handleRoleChange = (role) => setUserRole(role);
 
-  const handleShowPopup = (topic) => setPopupContent(topic);
-  const handleClosePopup = () => setPopupContent(null);
-
   const handleTopicAction = (topicId, action) => {
     setTopics((prevTopics) =>
       prevTopics.map((topic) =>
@@ -110,35 +116,10 @@ const SubjectsManagement = () => {
                 <td className="py-3 text-center">
                   <button
                     onClick={() => handleShowPopup(topic)}
-                    className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600 transition"
+                    className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600"
                   >
-                    Details
+                    Check
                   </button>
-                  {topic.status === "Pending" && (
-                    <>
-                      <button
-                        onClick={() =>
-                          handleTopicAction(topic.id, "Validated")
-                        }
-                        className="ml-2 bg-green-500 text-white px-3 py-1 rounded-md hover:bg-green-600 transition"
-                      >
-                        Validate
-                      </button>
-                      <button
-                        onClick={() => handleTopicAction(topic.id, "Refused")}
-                        className="ml-2 bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition"
-                      >
-                        Refuse
-                      </button>
-                      <button
-                        onClick={handleClosePopup}
-                        className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition"
->
-  Close
-</button>
-
-                    </>
-                  )}
                 </td>
               </tr>
             ))}
@@ -152,522 +133,498 @@ const SubjectsManagement = () => {
     <div className="p-8 min-h-screen bg-gray-50 text-gray-800">
       <h1 className="text-4xl font-semibold text-indigo-700 mb-8">Themes</h1>
 
-      <div className="mb-4">
-        <button
-          onClick={() => handleRoleChange("Professor")}
-          className="mr-2 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-        >
-          Professor View
-        </button>
-        <button
-          onClick={() => handleRoleChange("Company")}
-          className="mr-2 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-        >
-          Company View
-        </button>
-        <button
-          onClick={() => handleRoleChange("Student")}
-          className="mr-2 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-        >
-          Student View
-        </button>
-        <button
-          onClick={() => handleRoleChange("ProfResponsable")}
-          className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-        >
-          Prof Responsable View
-        </button>
-      </div>
+      
+{/* Views */}
+{userRole === "Student" && (
+<div className="space-y-10">
+{/* Suggested by Professors */}
+<div className="rounded-xl border border-gray-200 shadow-sm p-6 bg-white">
+<h2 className="text-lg font-semibold text-gray-700 mb-4">
+  Suggested <span className="text-sm text-gray-500">by professors</span>
+</h2>
+<table className="w-full text-sm text-gray-700">
+  <thead className="text-gray-500 border-b">
+    <tr>
+      <th className="py-3 text-left">Titles</th>
+      <th className="py-3 text-left">Professor Name</th>
+      <th className="py-3 text-center">Details</th>
+      <th className="py-3 text-center">Choose</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      {
+        title: "Plateforme de gestion des ressources humaines avec IA",
+        professor: "Boucham Mohamed",
+      },
+      {
+        title: "Système de recommandation pour e-commerce",
+        professor: "Kamli Amel",
+      },
+      {
+        title: "Solution de détection de fraudes en temps réel",
+        professor: "Kazi Khadidja",
+      },
+    ].map((item, index) => (
+      <tr key={index} className="border-t">
+        <td className="py-3 px-2">{item.title}</td>
+        <td className="py-3 px-2">{item.professor}</td>
+        <td className="py-3 text-center">
+          <button className="bg-indigo-600 text-white px-3 py-1 rounded-md hover:bg-indigo-700">
+            Check
+          </button>
+        </td>
+        <td className="py-3 text-center">
+          <button className="bg-gray-200 text-gray-600 px-3 py-1 rounded-md hover:bg-gray-300">
+            Pick
+          </button>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+</div>
 
-      {/* Views */}
-      {userRole === "Student" && (
-  <div className="space-y-10">
-    {/* Suggested by Professors */}
-    <div className="rounded-xl border border-gray-200 shadow-sm p-6 bg-white">
-      <h2 className="text-lg font-semibold text-gray-700 mb-4">
-        Suggested <span className="text-sm text-gray-500">by professors</span>
-      </h2>
-      <table className="w-full text-sm text-gray-700">
-        <thead className="text-gray-500 border-b">
-          <tr>
-            <th className="py-3 text-left">Titles</th>
-            <th className="py-3 text-left">Professor Name</th>
-            <th className="py-3 text-center">Details</th>
-            <th className="py-3 text-center">Choose</th>
-          </tr>
-        </thead>
-        <tbody>
-          {[
-            {
-              title: "Plateforme de gestion des ressources humaines avec IA",
-              professor: "Boucham Mohamed",
-            },
-            {
-              title: "Système de recommandation pour e-commerce",
-              professor: "Kamli Amel",
-            },
-            {
-              title: "Solution de détection de fraudes en temps réel",
-              professor: "Kazi Khadidja",
-            },
-          ].map((item, index) => (
-            <tr key={index} className="border-t">
-              <td className="py-3 px-2">{item.title}</td>
-              <td className="py-3 px-2">{item.professor}</td>
-              <td className="py-3 text-center">
-                <button className="bg-indigo-600 text-white px-3 py-1 rounded-md hover:bg-indigo-700">
-                  Check
-                </button>
-              </td>
-              <td className="py-3 text-center">
-                <button className="bg-gray-200 text-gray-600 px-3 py-1 rounded-md hover:bg-gray-300">
-                  Pick
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+{/* Suggested by Companies */}
+<div className="rounded-xl border border-gray-200 shadow-sm p-6 bg-white">
+<h2 className="text-lg font-semibold text-gray-700 mb-4">
+  Suggested <span className="text-sm text-gray-500">by companies</span>
+</h2>
+<table className="w-full text-sm text-gray-700">
+  <thead className="text-gray-500 border-b">
+    <tr>
+      <th className="py-3 text-left">Titles</th>
+      <th className="py-3 text-left">Company</th>
+      <th className="py-3 text-center">Details</th>
+      <th className="py-3 text-center">Choose</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      {
+        title: "Solution de gestion intelligente des stocks",
+        company: "Amazon",
+      },
+      {
+        title: "Application de gestion de la relation client (CRM)",
+        company: "Salesforce",
+      },
+      {
+        title: "Plateforme de recommandation de contenu personnalisé",
+        company: "Netflix",
+      },
+    ].map((item, index) => (
+      <tr key={index} className="border-t">
+        <td className="py-3 px-2">{item.title}</td>
+        <td className="py-3 px-2">{item.company}</td>
+        <td className="py-3 text-center">
+          <button className="bg-indigo-600 text-white px-3 py-1 rounded-md hover:bg-indigo-700">
+            Check
+          </button>
+        </td>
+        <td className="py-3 text-center">
+          <button className="bg-gray-200 text-gray-600 px-3 py-1 rounded-md hover:bg-gray-300">
+            Pick
+          </button>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+</div>
 
-    {/* Suggested by Companies */}
-    <div className="rounded-xl border border-gray-200 shadow-sm p-6 bg-white">
-      <h2 className="text-lg font-semibold text-gray-700 mb-4">
-        Suggested <span className="text-sm text-gray-500">by companies</span>
-      </h2>
-      <table className="w-full text-sm text-gray-700">
-        <thead className="text-gray-500 border-b">
-          <tr>
-            <th className="py-3 text-left">Titles</th>
-            <th className="py-3 text-left">Company</th>
-            <th className="py-3 text-center">Details</th>
-            <th className="py-3 text-center">Choose</th>
-          </tr>
-        </thead>
-        <tbody>
-          {[
-            {
-              title: "Solution de gestion intelligente des stocks",
-              company: "Amazon",
-            },
-            {
-              title: "Application de gestion de la relation client (CRM)",
-              company: "Salesforce",
-            },
-            {
-              title: "Plateforme de recommandation de contenu personnalisé",
-              company: "Netflix",
-            },
-          ].map((item, index) => (
-            <tr key={index} className="border-t">
-              <td className="py-3 px-2">{item.title}</td>
-              <td className="py-3 px-2">{item.company}</td>
-              <td className="py-3 text-center">
-                <button className="bg-indigo-600 text-white px-3 py-1 rounded-md hover:bg-indigo-700">
-                  Check
-                </button>
-              </td>
-              <td className="py-3 text-center">
-                <button className="bg-gray-200 text-gray-600 px-3 py-1 rounded-md hover:bg-gray-300">
-                  Pick
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-
-    {/* Suggest an Innovative Idea */}
-    <div className="rounded-xl border border-gray-200 shadow-sm p-6 bg-white">
-      <h2 className="text-lg font-semibold text-gray-700 mb-4">
-        Suggest an innovative idea <span className="text-sm text-gray-500">by you</span>
-      </h2>
-      <div className="flex flex-col space-y-4">
-        <input
-          type="text"
-          value={innovativeIdea}
-          onChange={(e) => setInnovativeIdea(e.target.value)}
-          placeholder="Title"
-          className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-indigo-500"
-        />
-        <textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="Description"
-          className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-indigo-500"
-        />
-        <button
-          onClick={handleAddIdea}
-          className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
-        >
-          Add
-        </button>
-      </div>
-    </div>
-  </div>
+{/* Suggest an Innovative Idea */}
+<div className="rounded-xl border border-gray-200 shadow-sm p-6 bg-white">
+<h2 className="text-lg font-semibold text-gray-700 mb-4">
+  Suggest an innovative idea <span className="text-sm text-gray-500">by you</span>
+</h2>
+<div className="flex flex-col space-y-4">
+  <input
+    type="text"
+    value={innovativeIdea}
+    onChange={(e) => setInnovativeIdea(e.target.value)}
+    placeholder="Title"
+    className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-indigo-500"
+  />
+  <textarea
+    value={description}
+    onChange={(e) => setDescription(e.target.value)}
+    placeholder="Description"
+    className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-indigo-500"
+  />
+  <button
+    onClick={handleAddIdea}
+    className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
+  >
+    Add
+  </button>
+</div>
+</div>
+</div>
 )}
 
 
 {userRole === "Professor" && (
-  <div className="space-y-10">
-    {/* Suggest a Topic */}
-    <div className="rounded-xl border border-gray-200 shadow-sm p-6 bg-white">
-      <h2 className="text-lg font-semibold text-gray-700 mb-4">
-        Suggest a topic <span className="text-sm text-gray-500">by you</span>
-      </h2>
-      <div className="flex flex-col space-y-4">
-        <input
-          type="text"
-          value={innovativeIdea}
-          onChange={(e) => setInnovativeIdea(e.target.value)}
-          placeholder="Title"
-          className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-indigo-500"
-        />
-        <textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="Description"
-          className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-indigo-500"
-        />
-        <button
-          onClick={handleAddIdea}
-          className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
-        >
-          Add
-        </button>
-        <p className="text-sm text-gray-500">Status: Waiting</p>
-      </div>
-    </div>
+<div className="space-y-10 px-6">
+{/* Suggest a Topic */}
+<div className="rounded-xl border border-gray-200 shadow-lg p-6 bg-white">
+<h2 className="text-xl font-semibold text-gray-800 mb-4">
+  Suggest a Topic <span className="text-sm text-gray-500">by you</span>
+</h2>
+<div className="flex flex-col space-y-4">
+  <input
+    type="text"
+    value={innovativeIdea}
+    onChange={(e) => setInnovativeIdea(e.target.value)}
+    placeholder="Title"
+    className="w-full border border-gray-300 rounded-md px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+  />
+  <textarea
+    value={description}
+    onChange={(e) => setDescription(e.target.value)}
+    placeholder="Description"
+    className="w-full border border-gray-300 rounded-md px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+  />
+  <button
+    onClick={handleAddIdea}
+    className="bg-indigo-600 text-white px-5 py-2 rounded-lg hover:bg-indigo-700 text-sm"
+  >
+    Add
+  </button>
+  <p className="text-sm text-gray-500">Status: Waiting</p>
+</div>
+</div>
 
-    {/* Suggested by Companies */}
-    <div className="rounded-xl border border-gray-200 shadow-sm p-6 bg-white">
-      <h2 className="text-lg font-semibold text-gray-700 mb-4">
-        Suggested <span className="text-sm text-gray-500">by companies</span>
-      </h2>
-      <table className="w-full text-sm text-gray-700">
-        <thead className="text-gray-500 border-b">
-          <tr>
-            <th className="py-3 text-left">Titles</th>
-            <th className="py-3 text-left">Company</th>
-            <th className="py-3 text-center">Details</th>
-            <th className="py-3 text-center">Choose</th>
-          </tr>
-        </thead>
-        <tbody>
-          {[
-            { title: "Solution de gestion intelligente des stocks", company: "Amazon" },
-            { title: "Application de gestion de la relation client (CRM)", company: "Salesforce" },
-            { title: "Plateforme de recommandation de contenu personnalisé", company: "Netflix" },
-          ].map((item, index) => (
-            <tr key={index} className="border-t">
-              <td className="py-3 px-2">{item.title}</td>
-              <td className="py-3 px-2">{item.company}</td>
-              <td className="py-3 text-center">
-                <button className="bg-indigo-600 text-white px-3 py-1 rounded-md hover:bg-indigo-700">
-                  Check
-                </button>
-              </td>
-              <td className="py-3 text-center">
-                <button className="bg-gray-200 text-gray-600 px-3 py-1 rounded-md hover:bg-gray-300">
-                  Pick
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+{/* Suggested by Companies */}
+<div className="rounded-xl border border-gray-200 shadow-lg p-6 bg-white">
+<h2 className="text-xl font-semibold text-gray-800 mb-4">
+  Suggested <span className="text-sm text-gray-500">by companies</span>
+</h2>
+<table className="w-full text-sm text-gray-700">
+  <thead className="text-gray-500 border-b">
+    <tr>
+      <th className="py-3 text-left">Titles</th>
+      <th className="py-3 text-left">Company</th>
+      <th className="py-3 text-center">Details</th>
+      <th className="py-3 text-center">Choose</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      { title: "Solution de gestion intelligente des stocks", company: "Amazon" },
+      { title: "Application de gestion de la relation client (CRM)", company: "Salesforce" },
+      { title: "Plateforme de recommandation de contenu personnalisé", company: "Netflix" },
+    ].map((item, index) => (
+      <tr key={index} className="border-t">
+        <td className="py-3 px-4">{item.title}</td>
+        <td className="py-3 px-4">{item.company}</td>
+        <td className="py-3 text-center">
+          <button className="bg-indigo-600 text-white px-4 py-1 rounded-md hover:bg-indigo-700 text-sm">
+            Check
+          </button>
+        </td>
+        <td className="py-3 text-center">
+          <button className="bg-gray-200 text-gray-600 px-4 py-1 rounded-md hover:bg-gray-300 text-sm">
+            Pick
+          </button>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+</div>
 
-    {/* Suggested by Students */}
-    <div className="rounded-xl border border-gray-200 shadow-sm p-6 bg-white">
-      <h2 className="text-lg font-semibold text-gray-700 mb-4">
-        Suggested <span className="text-sm text-gray-500">by students</span>
-      </h2>
-      <table className="w-full text-sm text-gray-700">
-        <thead className="text-gray-500 border-b">
-          <tr>
-            <th className="py-3 text-left">Titles</th>
-            <th className="py-3 text-left">Student(s) Name(s)</th>
-            <th className="py-3 text-center">Details</th>
-            <th className="py-3 text-center">Choose</th>
-          </tr>
-        </thead>
-        <tbody>
-          {[
-            { title: "Plateforme de gestion des ressources humaines avec IA", student: "Boucham Mohamed" },
-            { title: "Système de recommandation pour e-commerce", student: "Kamli Amel" },
-            { title: "Solution de détection de fraudes en temps réel", student: "Kazi Khadidja" },
-          ].map((item, index) => (
-            <tr key={index} className="border-t">
-              <td className="py-3 px-2">{item.title}</td>
-              <td className="py-3 px-2">{item.student}</td>
-              <td className="py-3 text-center">
-                <button className="bg-indigo-600 text-white px-3 py-1 rounded-md hover:bg-indigo-700">
-                  Check
-                </button>
-              </td>
-              <td className="py-3 text-center">
-                <button className="bg-gray-200 text-gray-600 px-3 py-1 rounded-md hover:bg-gray-300">
-                  Pick
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  </div>
+{/* Suggested by Students */}
+<div className="rounded-xl border border-gray-200 shadow-lg p-6 bg-white">
+<h2 className="text-xl font-semibold text-gray-800 mb-4">
+  Suggested <span className="text-sm text-gray-500">by students</span>
+</h2>
+<table className="w-full text-sm text-gray-700">
+  <thead className="text-gray-500 border-b">
+    <tr>
+      <th className="py-3 text-left">Titles</th>
+      <th className="py-3 text-left">Student(s) Name(s)</th>
+      <th className="py-3 text-center">Details</th>
+      <th className="py-3 text-center">Choose</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      { title: "Plateforme de gestion des ressources humaines avec IA", student: "Boucham Mohamed" },
+      { title: "Système de recommandation pour e-commerce", student: "Kamli Amel" },
+      { title: "Solution de détection de fraudes en temps réel", student: "Kazi Khadidja" },
+    ].map((item, index) => (
+      <tr key={index} className="border-t">
+        <td className="py-3 px-4">{item.title}</td>
+        <td className="py-3 px-4">{item.student}</td>
+        <td className="py-3 text-center">
+          <button className="bg-indigo-600 text-white px-4 py-1 rounded-md hover:bg-indigo-700 text-sm">
+            Check
+          </button>
+        </td>
+        <td className="py-3 text-center">
+          <button className="bg-gray-200 text-gray-600 px-4 py-1 rounded-md hover:bg-gray-300 text-sm">
+            Pick
+          </button>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+</div>
+</div>
 )}
 
 
+
 {userRole === "Company" && (
-  <div className="space-y-10">
-    {/* Topics Suggested by the Company */}
-    <div className="rounded-xl border border-gray-200 shadow-sm p-6 bg-white">
-      <h2 className="text-lg font-semibold text-gray-700 mb-4">
-        Topics Suggested by You
-      </h2>
-      <table className="w-full text-sm text-gray-700">
-        <thead className="text-gray-500 border-b">
-          <tr>
-            <th className="py-3 text-left">Titles</th>
-            <th className="py-3 text-center">Status</th>
-            <th className="py-3 text-center">Picked By</th>
-          </tr>
-        </thead>
-        <tbody>
-          {topics
-            .filter((topic) => topic.origin === "Company")
-            .map((topic, index) => (
-              <tr key={index} className="border-t">
-                <td className="py-3 px-2">{topic.title}</td>
-                <td className="py-3 text-center">
-                  <span
-                    className={`px-2 py-1 rounded-full text-xs ${
-                      topic.status === "Pending"
-                        ? "bg-yellow-100 text-yellow-800"
-                        : topic.status === "Validated"
-                        ? "bg-green-100 text-green-800"
-                        : "bg-red-100 text-red-800"
-                    }`}
-                  >
-                    {topic.status}
-                  </span>
-                </td>
-                <td className="py-3 text-center">
-                  {topic.status === "Validated" ? (
-                    topic.submittedBy
-                  ) : (
-                    <span className="text-gray-400 italic">Not Applicable</span>
-                  )}
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
-    </div>
-  </div>
+<div className="space-y-10">
+{/* Topics Suggested by the Company */}
+<div className="rounded-xl border border-gray-200 shadow-sm p-6 bg-white">
+<h2 className="text-lg font-semibold text-gray-700 mb-4">
+  Topics Suggested by You
+</h2>
+<table className="w-full text-sm text-gray-700">
+  <thead className="text-gray-500 border-b">
+    <tr>
+      <th className="py-3 text-left">Titles</th>
+      <th className="py-3 text-center">Status</th>
+      <th className="py-3 text-center">Picked By</th>
+    </tr>
+  </thead>
+  <tbody>
+    {topics
+      .filter((topic) => topic.origin === "Company")
+      .map((topic, index) => (
+        <tr key={index} className="border-t">
+          <td className="py-3 px-2">{topic.title}</td>
+          <td className="py-3 text-center">
+            <span
+              className={`px-2 py-1 rounded-full text-xs ${
+                topic.status === "Pending"
+                  ? "bg-yellow-100 text-yellow-800"
+                  : topic.status === "Validated"
+                  ? "bg-green-100 text-green-800"
+                  : "bg-red-100 text-red-800"
+              }`}
+            >
+              {topic.status}
+            </span>
+          </td>
+          <td className="py-3 text-center">
+            {topic.status === "Validated" ? (
+              topic.submittedBy
+            ) : (
+              <span className="text-gray-400 italic">Not Applicable</span>
+            )}
+          </td>
+        </tr>
+      ))}
+  </tbody>
+</table>
+</div>
+</div>
 )}
 
 
 {userRole === "ProfResponsable" && (
-  <div className="space-y-10">
-    <h2 className="text-2xl font-bold mb-4">Prof Responsable View</h2>
+<div className="space-y-10">
+<h2 className="text-2xl font-bold mb-4"> </h2> 
 
-    {/* Suggested by Professors */}
-    <div className="rounded-xl border border-gray-200 shadow-sm p-6 bg-white">
-      <h2 className="text-lg font-semibold text-gray-700 mb-4">
-        Suggested <span className="text-sm text-gray-500">by professors</span>
-      </h2>
-      <table className="w-full text-sm text-gray-700">
-        <thead className="text-gray-500 border-b">
-          <tr>
-            <th className="py-3 text-left">Titles</th>
-            <th className="py-3 text-center">Status</th>
-            <th className="py-3 text-center">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {topics
-            .filter((topic) => topic.origin === "Professor")
-            .map((topic, index) => (
-              <tr key={index} className="border-t">
-                <td className="py-3 px-2">{topic.title}</td>
-                <td className="py-3 text-center">
-                  <span
-                    className={`px-2 py-1 rounded-full text-xs ${
-                      topic.status === "Pending"
-                        ? "bg-yellow-100 text-yellow-800"
-                        : topic.status === "Validated"
-                        ? "bg-green-100 text-green-800"
-                        : "bg-red-100 text-red-800"
-                    }`}
-                  >
-                    {topic.status}
-                  </span>
-                </td>
-                <td className="py-3 text-center">
-                  <button
-                    onClick={() => handleShowPopup(topic)}
-                    className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600"
-                  >
-                    Check
-                  </button>
-                  {topic.status === "Pending" && (
-                    <>
-                      <button
-                        onClick={() =>
-                          handleTopicAction(topic.id, "Validated")
-                        }
-                        className="ml-2 bg-green-500 text-white px-3 py-1 rounded-md hover:bg-green-600"
-                      >
-                        Validate
-                      </button>
-                      <button
-                        onClick={() => handleTopicAction(topic.id, "Refused")}
-                        className="ml-2 bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600"
-                      >
-                        Refuse
-                      </button>
-                    </>
-                  )}
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
-    </div>
+{/* Suggested by Professors */}
+<div className="rounded-xl border border-gray-200 shadow-sm p-6 bg-white">
+<h2 className="text-lg font-semibold text-gray-700 mb-4">
+  Suggested <span className="text-sm text-gray-500">by professors</span>
+</h2>
+<table className="w-full text-sm text-gray-700">
+  <thead className="text-gray-500 border-b">
+    <tr>
+      <th className="py-3 text-left">Titles</th>
+      <th className="py-3 text-center">Status</th>
+      <th className="py-3 text-center">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {topics
+      .filter((topic) => topic.origin === "Professor")
+      .map((topic, index) => (
+        <tr key={index} className="border-t">
+          <td className="py-3 px-2">{topic.title}</td>
+          <td className="py-3 text-center">
+            <span
+              className={`px-2 py-1 rounded-full text-xs ${
+                topic.status === "Pending"
+                  ? "bg-yellow-100 text-yellow-800"
+                  : topic.status === "Validated"
+                  ? "bg-green-100 text-green-800"
+                  : "bg-red-100 text-red-800"
+              }`}
+            >
+              {topic.status}
+            </span>
+          </td>
+          <td className="py-3 text-center">
+            <button
+              onClick={() => handleShowPopup(topic)}
+              className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600"
+            >
+              Check
+            </button>
+            {topic.status === "Pending" && (
+              <>
+                <button
+                  onClick={() =>
+                    handleTopicAction(topic.id, "Validated")
+                  }
+                  className="ml-2 bg-green-500 text-white px-3 py-1 rounded-md hover:bg-green-600"
+                >
+                  Validate
+                </button>
+                <button
+                  onClick={() => handleTopicAction(topic.id, "Refused")}
+                  className="ml-2 bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600"
+                >
+                  Refuse
+                </button>
+              </>
+            )}
+          </td>
+        </tr>
+      ))}
+  </tbody>
+</table>
+</div>
 
-    {/* Suggested by Companies */}
-    <div className="rounded-xl border border-gray-200 shadow-sm p-6 bg-white">
-      <h2 className="text-lg font-semibold text-gray-700 mb-4">
-        Suggested <span className="text-sm text-gray-500">by companies</span>
-      </h2>
-      <table className="w-full text-sm text-gray-700">
-        <thead className="text-gray-500 border-b">
-          <tr>
-            <th className="py-3 text-left">Titles</th>
-            <th className="py-3 text-center">Status</th>
-            <th className="py-3 text-center">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {topics
-            .filter((topic) => topic.origin === "Company")
-            .map((topic, index) => (
-              <tr key={index} className="border-t">
-                <td className="py-3 px-2">{topic.title}</td>
-                <td className="py-3 text-center">
-                  <span
-                    className={`px-2 py-1 rounded-full text-xs ${
-                      topic.status === "Pending"
-                        ? "bg-yellow-100 text-yellow-800"
-                        : topic.status === "Validated"
-                        ? "bg-green-100 text-green-800"
-                        : "bg-red-100 text-red-800"
-                    }`}
-                  >
-                    {topic.status}
-                  </span>
-                </td>
-                <td className="py-3 text-center">
-                  <button
-                    onClick={() => handleShowPopup(topic)}
-                    className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600"
-                  >
-                    Check
-                  </button>
-                  {topic.status === "Pending" && (
-                    <>
-                      <button
-                        onClick={() =>
-                          handleTopicAction(topic.id, "Validated")
-                        }
-                        className="ml-2 bg-green-500 text-white px-3 py-1 rounded-md hover:bg-green-600"
-                      >
-                        Validate
-                      </button>
-                      <button
-                        onClick={() => handleTopicAction(topic.id, "Refused")}
-                        className="ml-2 bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600"
-                      >
-                        Refuse
-                      </button>
-                    </>
-                  )}
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
-    </div>
+{/* Suggested by Companies */}
+<div className="rounded-xl border border-gray-200 shadow-sm p-6 bg-white">
+<h2 className="text-lg font-semibold text-gray-700 mb-4">
+  Suggested <span className="text-sm text-gray-500">by companies</span>
+</h2>
+<table className="w-full text-sm text-gray-700">
+  <thead className="text-gray-500 border-b">
+    <tr>
+      <th className="py-3 text-left">Titles</th>
+      <th className="py-3 text-center">Status</th>
+      <th className="py-3 text-center">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {topics
+      .filter((topic) => topic.origin === "Company")
+      .map((topic, index) => (
+        <tr key={index} className="border-t">
+          <td className="py-3 px-2">{topic.title}</td>
+          <td className="py-3 text-center">
+            <span
+              className={`px-2 py-1 rounded-full text-xs ${
+                topic.status === "Pending"
+                  ? "bg-yellow-100 text-yellow-800"
+                  : topic.status === "Validated"
+                  ? "bg-green-100 text-green-800"
+                  : "bg-red-100 text-red-800"
+              }`}
+            >
+              {topic.status}
+            </span>
+          </td>
+          <td className="py-3 text-center">
+            <button
+              onClick={() => handleShowPopup(topic)}
+              className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600"
+            >
+              Check
+            </button>
+            {topic.status === "Pending" && (
+              <>
+                <button
+                  onClick={() =>
+                    handleTopicAction(topic.id, "Validated")
+                  }
+                  className="ml-2 bg-green-500 text-white px-3 py-1 rounded-md hover:bg-green-600"
+                >
+                  Validate
+                </button>
+                <button
+                  onClick={() => handleTopicAction(topic.id, "Refused")}
+                  className="ml-2 bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600"
+                >
+                  Refuse
+                </button>
+              </>
+            )}
+          </td>
+        </tr>
+      ))}
+  </tbody>
+</table>
+</div>
 
-    {/* Suggested by Students */}
-    <div className="rounded-xl border border-gray-200 shadow-sm p-6 bg-white">
-      <h2 className="text-lg font-semibold text-gray-700 mb-4">
-        Suggested <span className="text-sm text-gray-500">by students</span>
-      </h2>
-      <table className="w-full text-sm text-gray-700">
-        <thead className="text-gray-500 border-b">
-          <tr>
-            <th className="py-3 text-left">Titles</th>
-            <th className="py-3 text-center">Status</th>
-            <th className="py-3 text-center">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {topics
-            .filter((topic) => topic.origin === "Student")
-            .map((topic, index) => (
-              <tr key={index} className="border-t">
-                <td className="py-3 px-2">{topic.title}</td>
-                <td className="py-3 text-center">
-                  <span
-                    className={`px-2 py-1 rounded-full text-xs ${
-                      topic.status === "Pending"
-                        ? "bg-yellow-100 text-yellow-800"
-                        : topic.status === "Validated"
-                        ? "bg-green-100 text-green-800"
-                        : "bg-red-100 text-red-800"
-                    }`}
-                  >
-                    {topic.status}
-                  </span>
-                </td>
-                <td className="py-3 text-center">
-                  <button
-                    onClick={() => handleShowPopup(topic)}
-                    className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600"
-                  >
-                    Check
-                  </button>
-                  {topic.status === "Pending" && (
-                    <>
-                      <button
-                        onClick={() =>
-                          handleTopicAction(topic.id, "Validated")
-                        }
-                        className="ml-2 bg-green-500 text-white px-3 py-1 rounded-md hover:bg-green-600"
-                      >
-                        Validate
-                      </button>
-                      <button
-                        onClick={() => handleTopicAction(topic.id, "Refused")}
-                        className="ml-2 bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600"
-                      >
-                        Refuse
-                      </button>
-                    </>
-                  )}
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
-    </div>
-  </div>
+{/* Suggested by Students */}
+<div className="rounded-xl border border-gray-200 shadow-sm p-6 bg-white">
+<h2 className="text-lg font-semibold text-gray-700 mb-4">
+  Suggested <span className="text-sm text-gray-500">by students</span>
+</h2>
+<table className="w-full text-sm text-gray-700">
+  <thead className="text-gray-500 border-b">
+    <tr>
+      <th className="py-3 text-left">Titles</th>
+      <th className="py-3 text-center">Status</th>
+      <th className="py-3 text-center">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {topics
+      .filter((topic) => topic.origin === "Student")
+      .map((topic, index) => (
+        <tr key={index} className="border-t">
+          <td className="py-3 px-2">{topic.title}</td>
+          <td className="py-3 text-center">
+            <span
+              className={`px-2 py-1 rounded-full text-xs ${
+                topic.status === "Pending"
+                  ? "bg-yellow-100 text-yellow-800"
+                  : topic.status === "Validated"
+                  ? "bg-green-100 text-green-800"
+                  : "bg-red-100 text-red-800"
+              }`}
+            >
+              {topic.status}
+            </span>
+          </td>
+          <td className="py-3 text-center">
+            <button
+              onClick={() => handleShowPopup(topic)}
+              className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600"
+            >
+              Check
+            </button>
+            {topic.status === "Pending" && (
+              <>
+                <button
+                  onClick={() =>
+                    handleTopicAction(topic.id, "Validated")
+                  }
+                  className="ml-2 bg-green-500 text-white px-3 py-1 rounded-md hover:bg-green-600"
+                >
+                  Validate
+                </button>
+                <button
+                  onClick={() => handleTopicAction(topic.id, "Refused")}
+                  className="ml-2 bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600"
+                >
+                  Refuse
+                </button>
+              </>
+            )}
+          </td>
+        </tr>
+      ))}
+  </tbody>
+</table>
+</div>
+</div>
 )}
+
 
     </div>
   );
