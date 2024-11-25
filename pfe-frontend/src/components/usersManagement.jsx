@@ -105,7 +105,7 @@ const UsersManagement = () => {
 
       {/* Dropdown, Search, and Add Button */}
       <div className="flex flex-col items-start bg-white mx-4 mt-2 rounded-xl shadow-md mb-6">
-        <div className="flex lg:flex-row flex-col justify-between items-center w-full px-6 pt-4">
+        <div className="flex flex-row justify-between items-center w-full px-6 pt-4">
           {/* Title with Dropdown */}
           <div className="relative">
             <div
